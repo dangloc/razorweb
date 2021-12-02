@@ -46,8 +46,8 @@ namespace razorwebapp.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage="Nhap {0}")]
+            [EmailAddress(ErrorMessage = "sai dinh dang {0}")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -59,8 +59,14 @@ namespace razorwebapp.Areas.Identity.Pages.Account
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "Password nhap lai sai")]
             public string ConfirmPassword { get; set; }
+
+            [Display(Name="NameAccount")]
+            [Required(ErrorMessage ="{0} phai nhap")]
+            [StringLength(20,ErrorMessage="{0} phai dai tu {2} den {1} khi tu", MinimumLength =(8))]
+            [DataType(DataType.Text)]
+            public string UserName { get; set; } 
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -75,12 +81,14 @@ namespace razorwebapp.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = Input.Email, Email = Input.Email };
+                var user = new AppUser { UserName = Input.UserName, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
 
+
+                    //phat sinh token de nguoi dung xac nhan email
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
