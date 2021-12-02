@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using razorwebapp.models;
 
 namespace razorwebapp.Migrations
 {
     [DbContext(typeof(MyWebContext))]
-    partial class MyWebContextModelSnapshot : ModelSnapshot
+    [Migration("20211202160722_UpdateUser2")]
+    partial class UpdateUser2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
