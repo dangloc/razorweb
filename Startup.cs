@@ -82,6 +82,21 @@ namespace razorwebapp
                 options.SignIn.RequireConfirmedAccount = true;   
 
             });
+            services.AddAuthentication().AddGoogle(options=> {
+                var gconfig = Configuration.GetSection("Authentication:Google");
+                options.ClientId = gconfig["ClientId"];
+                options.ClientSecret=gconfig["ClientSecret"];
+                options.CallbackPath="/dang-nhap-tu-google";
+            })
+            .AddFacebook(options=> {
+                var fconfig = Configuration.GetSection("Authentication:Facebook");
+                options.AppId = fconfig["AppId"];
+                options.AppSecret = fconfig["AppSecret"];
+                options.CallbackPath = "/dang-nhap-tu-fakebook"; 
+            })
+            // .AddMicrosoftAccount()
+            // .AddTwitter()
+            ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -124,6 +124,74 @@ namespace razorwebapp.Areas.Identity.Pages.Account
             {
                 var user = new AppUser { UserName = Input.Email, Email = Input.Email };
 
+
+                var registerUser = await _userManager.FindByEmailAsync(Input.Email);
+                info.Principal.HasClaim(c => c.Type == ClaimTypes.Email);
+                string externalEmail = null;
+                AppUser externalEmailUser = null;
+
+                if(info.Principal.HasClaim(c => c.Type == ClaimTypes.Email))
+                {
+                    externalEmail = info.Principal.FindFirstValue(ClaimTypes.Email);
+                }
+
+                if(externalEmail != null)
+                {
+                    externalEmailUser = await _userManager.FindByEmailAsync(externalEmail);
+                }
+                if((registerUser != null)&&(externalEmailUser != null))
+                {
+                    if(registerUser.Id == externalEmailUser.Id)
+                    {
+                        var resultlink =  await _userManager.AddLoginAsync(registerUser, info);
+                        if(resultlink.Succeeded)
+                        {
+                            await _signInManager.SignInAsync(registerUser, isPersistent: false);
+                            return LocalRedirect(returnUrl);
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "khong lien ket duoc tai khoan, hay su dung email khac");
+                        return Page();
+                    }
+                }
+
+                if((externalEmailUser != null) && (registerUser == null))
+                {
+                    ModelState.AddModelError(string.Empty, "khong ho tro tao tai khoan moi- co email khac voi dich vu ngoai");
+                    return Page();
+
+                }
+
+
+                if((externalEmailUser == null) && (externalEmail == Input.Email))
+                {
+                    var newUser = new AppUser()
+                    {
+                        UserName = externalEmail,
+                        Email = externalEmail
+                    };
+                    var resultnewUser = await _userManager.CreateAsync(newUser);
+                    
+                    if(resultnewUser.Succeeded)
+                    {
+                        await _userManager.AddLoginAsync(newUser, info);
+                        var code = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+                        await _userManager.ConfirmEmailAsync(newUser, code);
+
+                        await _signInManager.SignInAsync(newUser, isPersistent: false);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "khong tao duoc tai khoan moi");
+                        return Page();
+                    }
+                }
+
+
+
+
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
