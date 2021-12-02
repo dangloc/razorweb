@@ -31,8 +31,8 @@ namespace razorwebapp.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage="Nhap {0}")]
+            [EmailAddress(ErrorMessage="Sai dinh dang {0}")]
             public string Email { get; set; }
         }
 
