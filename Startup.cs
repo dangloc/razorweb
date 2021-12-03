@@ -59,6 +59,9 @@ namespace razorwebapp
                         // policyBuilder.RequireRole("Editor");
                         policyBuilder.RequireClaim("canedit", "user");
                 });
+                options.AddPolicy("ShowAdminMenu", pb=> {
+                    pb.RequireRole("Admin");
+                } );
              });
 
             // services.AddDefaultIdentity<AppUser>()
