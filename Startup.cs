@@ -13,9 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using razorwebapp.models;
+using App.Models;
 
-namespace razorwebapp
+namespace App
 {
     public class Startup
     {
@@ -35,14 +35,14 @@ namespace razorwebapp
             services.AddSingleton<IEmailSender, SendMailService>();
 
             services.AddRazorPages();
-            services.AddDbContext<MyWebContext>(options => {
+            services.AddDbContext<AppDbContext>(options => {
                 string connectionString = Configuration.GetConnectionString("MyWebContext");
                 options.UseSqlServer(connectionString);
             });
 
             // dang ki Identity
              services.AddIdentity<AppUser, IdentityRole>()
-             .AddEntityFrameworkStores<MyWebContext>()
+             .AddEntityFrameworkStores<AppDbContext>()
              .AddDefaultTokenProviders();
 
 

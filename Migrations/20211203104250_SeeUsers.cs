@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace razorwebapp.Migrations
+namespace App.Migrations
 {
     public partial class SeeUsers : Migration
     {

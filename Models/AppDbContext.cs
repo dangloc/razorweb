@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace razorwebapp.models
+namespace App.Models
 {
-    public class MyWebContext : IdentityDbContext<AppUser>
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
-        public MyWebContext(DbContextOptions<MyWebContext> options) : base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
         protected override void OnConfiguring(DbContextOptionsBuilder builder)

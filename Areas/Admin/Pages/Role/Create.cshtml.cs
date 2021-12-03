@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using razorwebapp.models;
+using App.Models;
 
 namespace App.Admin.Role
 {
     [Authorize(Roles = "Admin")]
     public class CreateModel : RolePageModel
     {
-        public CreateModel(RoleManager<IdentityRole> roleManager, MyWebContext myWebContext) : base(roleManager, myWebContext)
+        public CreateModel(RoleManager<IdentityRole> roleManager, AppDbContext myWebContext) : base(roleManager, myWebContext)
         {
         }
 

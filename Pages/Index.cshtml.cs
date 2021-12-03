@@ -6,17 +6,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using razorwebapp.models;
+using App.Models;
 
-namespace razorwebapp.Pages
+namespace App.Pages
 {
   
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly MyWebContext myWebContext;
+        private readonly AppDbContext myWebContext;
 
-        public IndexModel(ILogger<IndexModel> logger, MyWebContext _context)
+        public IndexModel(ILogger<IndexModel> logger, AppDbContext _context)
         {
             _logger = logger;
             myWebContext = _context;

@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using razorwebapp.models;
+using App.Models;
 
 namespace App.Admin.User
 {
     public class EditUserRoleClaimModel : PageModel
     {
-        private readonly MyWebContext _context;
+        private readonly AppDbContext _context;
         private readonly UserManager<AppUser> _userManager;
-        public EditUserRoleClaimModel(MyWebContext myWebContext, UserManager<AppUser> userManager)
+        public EditUserRoleClaimModel(AppDbContext myWebContext, UserManager<AppUser> userManager)
         {
             _context = myWebContext;
             _userManager = userManager;

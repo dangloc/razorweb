@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace razorwebapp.models
+namespace App.Models
 {
     public class Article{
         [Key]

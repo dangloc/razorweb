@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using razorwebapp.models;
+using App.Models;
 
-[assembly: HostingStartup(typeof(razorwebapp.Areas.Identity.IdentityHostingStartup))]
-namespace razorwebapp.Areas.Identity
+[assembly: HostingStartup(typeof(App.Areas.Identity.IdentityHostingStartup))]
+namespace App.Areas.Identity
 {
     public class IdentityHostingStartup : IHostingStartup
     {

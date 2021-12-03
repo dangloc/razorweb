@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using razorwebapp.models;
+using App.Models;
 
-namespace razorwebapp.Migrations
+namespace App.Migrations
 {
-    [DbContext(typeof(MyWebContext))]
+    [DbContext(typeof(AppDbContext))]
     partial class MyWebContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

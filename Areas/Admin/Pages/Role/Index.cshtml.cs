@@ -7,14 +7,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using razorwebapp.models;
+using App.Models;
 
 namespace App.Admin.Role
 {
     [Authorize(Roles = "Admin")]
     public class IndexModel : RolePageModel
     {
-        public IndexModel(RoleManager<IdentityRole> roleManager, MyWebContext myWebContext) : base(roleManager, myWebContext)
+        public IndexModel(RoleManager<IdentityRole> roleManager, AppDbContext myWebContext) : base(roleManager, myWebContext)
         {
         }
 

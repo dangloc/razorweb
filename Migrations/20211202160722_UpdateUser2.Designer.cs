@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using razorwebapp.models;
+using App.Models;
 
-namespace razorwebapp.Migrations
+namespace App.Migrations
 {
-    [DbContext(typeof(MyWebContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20211202160722_UpdateUser2")]
     partial class UpdateUser2
     {
