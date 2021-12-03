@@ -1,0 +1,56 @@
+﻿@page "/admin/member"
+@model App.Admin.User.IndexModel
+@{
+    ViewData["Title"] = "List User";
+}
+<h2>@ViewData["Title"]</h2>
+
+<partial name="_StatusMessage" model="@Model.StatusMessage"></partial>
+<p>Tong so thanh vien: @Model.totalUsers</p>
+
+<table class="table">
+    <tr>
+        <th>
+            UserName
+        </th>
+        <th>
+            UserRole
+        </th>
+        <th>
+            UserAction
+        </th>
+    </tr>
+    @foreach (var user in Model.user)
+    {
+        <tr>
+            <td>@user.UserName</td>
+            <td>
+                @if(string.IsNullOrEmpty(user.RoleNames))
+                {
+                     <a class="text-dark" asp-page="./AddRole" asp-route-id="@user.Id">+ Add role</a>
+                }
+                else
+                {
+                     <a asp-page="./AddRole" asp-route-id="@user.Id">@user.RoleNames</a>
+                }
+               
+            </td>
+
+            <td>
+                <a class="btn btn-success btn-sm" asp-page="./SetPassword" asp-route-id="@user.Id">SetPassword</a>
+                
+
+            </td>
+        </tr>
+    }
+
+</table>
+@{
+    var pagingmodel = new DBL.Helpers.PagingModel()
+    {
+        currentPage = Model.currentPage,
+        CountPages = Model.countPages,
+        GenerateUrl = (int? p) => Url.Page("./Index", new { p = p})
+    };
+}
+<partial name="_PagingDBL" model="@pagingmodel"/>

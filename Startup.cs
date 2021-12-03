@@ -133,7 +133,21 @@ namespace razorwebapp
 /* 
 Identity:  
     - Authentication: xac thuc danh tinh => login, logout...
+
+
     -Authorization: xac thuc quyen truy cap
+        - role-based authorization - xac thuc quyen theo vai tro
+        -role(vai tro) : (Admin, Editor, vip, Manager, Menber...)
+
+        Areas/Admin/Pages/Role
+        index
+        create
+        edit
+        Delete
+    dotnet new page -n Index -o Areas/Admin/Pages/Role -na App.Admin.Role
+    dotnet new page -n Create -o Areas/Admin/Pages/Role -na App.Admin.Role
+
+
     -quan li User: Signup, userm, 
 Identity/Account/Login
 Identity/Account/Manage\
