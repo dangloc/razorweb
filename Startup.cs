@@ -52,6 +52,15 @@ namespace razorwebapp
                  options.AccessDeniedPath="/khongduoctruycap.html";
              });
 
+             services.AddAuthorization(options => {
+                options.AddPolicy("AllowEditRole", policyBuilder => {
+                        policyBuilder.RequireAuthenticatedUser();
+                        // policyBuilder.RequireRole("Admin");
+                        // policyBuilder.RequireRole("Editor");
+                        policyBuilder.RequireClaim("canedit", "user");
+                });
+             });
+
             // services.AddDefaultIdentity<AppUser>()
             // .AddEntityFrameworkStores<MyWebContext>()
             // .AddDefaultTokenProviders();
@@ -146,6 +155,7 @@ Identity:
         Delete
     dotnet new page -n Index -o Areas/Admin/Pages/Role -na App.Admin.Role
     dotnet new page -n Create -o Areas/Admin/Pages/Role -na App.Admin.Role
+    dotnet new page -n EditUserRoleClaim -o Areas/Admin/Pages/User -na App.Admin.User
 
 
     -quan li User: Signup, userm, 

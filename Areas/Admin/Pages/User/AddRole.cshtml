@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Set Role";
 }
-
 <h4>Set Role is user : @Model.user.UserName</h4>
 <partial name="_StatusMessage" for="StatusMessage" />
 
@@ -25,7 +24,39 @@
             <button type="submit" class="btn btn-primary">Update</button>
             <a  class="btn btn-primary" asp-page="./Index">list user</a>
         </form>
-    </div>
+        <hr>
+        <p> Claims for user in Roles. </p>
+        @if (Model.claimInRole.Count > 0)
+        {
+            <ul>
+
+                @foreach (var claim in Model.claimInRole)
+                {
+                    <li>
+                        @claim.ClaimType : @claim.ClaimValue
+                    </li>
+                }
+            </ul>
+        }
+        <p> Claims for user: 
+            <a asp-page="./EditUserRoleClaim" asp-page-handler="AddClaim" asp-route-userid="@Model.user.Id">+ Add claim</a>
+        </p>
+        <br>
+        @if (Model.claimInUserClaim.Count > 0)
+        {
+            <ul>
+                @foreach (var claim in Model.claimInUserClaim)
+                {
+                    <li>
+                        <a asp-page="./EditUserRoleClaim" asp-page-handler="EditClaim" asp-route-claimid="@claim.Id">
+                        @claim.ClaimType : @claim.ClaimValue
+                        </a>
+                    </li>             
+                }
+            </ul>
+        }
+        
+    </div>      
 </div>
 
 @section Scripts {

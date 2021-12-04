@@ -23,6 +23,24 @@
 
             
         </form>
+        <hr>
+        <p>Feature is claims  for role: </p>
+        <a asp-page="./AddRoleClaim" asp-route-roleid="@Model.role.Id">+ Add claim</a>
+        @if(Model.Claims.Count> 0)
+        {
+            <ul>
+                @foreach (var claim in Model.Claims)
+                {
+                    <li>
+                        <a asp-page="./EditRoleClaim"  asp-route-claimid="@claim.Id">
+                            @claim.ClaimType: @claim.ClaimValue
+                            </a>
+
+                    </li>
+                }
+            </ul>
+
+        }
     </div>
 </div>
 

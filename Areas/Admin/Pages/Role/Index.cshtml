@@ -17,6 +17,7 @@
     <tr>
         <th>
             RoleName
+            
         </th>
         <th>
             Action
@@ -25,7 +26,13 @@
     @foreach (var role in Model.Roles)
     {
         <tr>
-            <td>@role.Name</td>
+            <td>
+                <p>@role.Name</p>
+                @foreach (var claim in @role.Claims)
+                {
+                    <small>@claim</small><br>
+                }
+            </td>
             <td>
                 <a class="btn btn-success btn-sm" asp-page="./Edit" asp-route-roleid="@role.Id">Edit</a>
                 <a class="btn btn-success btn-sm" asp-page="./Delete" asp-route-roleid="@role.Id">Delete</a>

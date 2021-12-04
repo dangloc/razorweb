@@ -7,11 +7,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using razorwebapp.models;
 
 namespace App.Admin.Role
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "AllowEditRole")]
     public class EditModel : RolePageModel
     {
         public EditModel(RoleManager<IdentityRole> roleManager, MyWebContext myWebContext) : base(roleManager, myWebContext)
@@ -31,6 +32,8 @@ namespace App.Admin.Role
 
         public InputModel Input { get; set; }
 
+        public List<IdentityRoleClaim<string>> Claims { get; set; }
+
         public IdentityRole role { get; set; }
 
         public async Task<IActionResult> OnGet(string roleid)
@@ -46,6 +49,8 @@ namespace App.Admin.Role
                 {
                     Name = role.Name
                 };
+
+                Claims = await _context.RoleClaims.Where(rc => rc.RoleId == role.Id).ToListAsync();
                 return Page();
             }
             return NotFound("Khong tim thay role");
@@ -53,9 +58,11 @@ namespace App.Admin.Role
 
         public async Task<IActionResult> OnPostAsync(string roleid)
         {
-             if(roleid == null) return NotFound("Khong tim thay role");
-             role = await _roleManager.FindByIdAsync(roleid);
-                if(role == null)  return NotFound("Khong tim thay role");
+            if(roleid == null) return NotFound("Khong tim thay role");
+            role = await _roleManager.FindByIdAsync(roleid);
+            if(role == null)  return NotFound("Khong tim thay role");
+            
+            Claims = await _context.RoleClaims.Where(rc => rc.RoleId == role.Id).ToListAsync();
 
 
             if(!ModelState.IsValid)
