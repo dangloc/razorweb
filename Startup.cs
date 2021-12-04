@@ -52,6 +52,15 @@ namespace razorwebapp
                  options.AccessDeniedPath="/khongduoctruycap.html";
              });
 
+             services.AddAuthorization(options => {
+                options.AddPolicy("AllowEditRole", policyBuilder => {
+                        policyBuilder.RequireAuthenticatedUser();
+                        // policyBuilder.RequireRole("Admin");
+                        // policyBuilder.RequireRole("Editor");
+                        policyBuilder.RequireClaim("canedit", "user");
+                });
+             });
+
             // services.AddDefaultIdentity<AppUser>()
             // .AddEntityFrameworkStores<MyWebContext>()
             // .AddDefaultTokenProviders();
@@ -133,7 +142,22 @@ namespace razorwebapp
 /* 
 Identity:  
     - Authentication: xac thuc danh tinh => login, logout...
+
+
     -Authorization: xac thuc quyen truy cap
+        - role-based authorization - xac thuc quyen theo vai tro
+        -role(vai tro) : (Admin, Editor, vip, Manager, Menber...)
+
+        Areas/Admin/Pages/Role
+        index
+        create
+        edit
+        Delete
+    dotnet new page -n Index -o Areas/Admin/Pages/Role -na App.Admin.Role
+    dotnet new page -n Create -o Areas/Admin/Pages/Role -na App.Admin.Role
+    dotnet new page -n EditUserRoleClaim -o Areas/Admin/Pages/User -na App.Admin.User
+
+
     -quan li User: Signup, userm, 
 Identity/Account/Login
 Identity/Account/Manage\

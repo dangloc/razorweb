@@ -23,6 +23,7 @@ namespace razorwebapp.Pages_Blog
         public IList<Article> Article { get;set; }
 
         public const int  ITEM_PER_PAGE = 10;
+        
         [BindProperty(SupportsGet = true, Name = "p")]
         public int currentPage { get; set; }
         public int countPages { get; set; }
@@ -42,7 +43,9 @@ namespace razorwebapp.Pages_Blog
 
                 var qr = (from a in _context.articles
                             orderby a.Created descending
-                            select a).Skip((currentPage-1)*ITEM_PER_PAGE).Take(ITEM_PER_PAGE);
+                            select a)
+                            .Skip((currentPage-1)*ITEM_PER_PAGE)
+                            .Take(ITEM_PER_PAGE);
 
                 if(!string.IsNullOrEmpty(SearchString))
                 {
